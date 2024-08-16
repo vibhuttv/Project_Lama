@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import signupAction from "./signupAction";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [error, setError] = useState(null);
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,6 +17,8 @@ const Page = () => {
       const result = await signupAction(formData);
       if (typeof result === "string") {
         setError(result);
+      } else {
+        router.push("/");
       }
     } catch (err) {
       setError("An unexpected error occurred");

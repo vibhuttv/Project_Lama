@@ -1,4 +1,4 @@
-import validateEmail from "@/helpers/validateEmail";
+// import validateEmail from "@/helpers/validateEmail";
 import connectDB from "../../../lib/dbConnect";
 import bcrypt from "bcryptjs";
 import User from "../../../models/User";
@@ -18,11 +18,11 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    if (!validateEmail(email)) {
-      return new Response(JSON.stringify({ message: "Invalid email" }), {
-        status: 400,
-      });
-    }
+    // if (!validateEmail(email)) {
+    //   return new Response(JSON.stringify({ message: "Invalid email" }), {
+    //     status: 400,
+    //   });
+    // }
 
     if (password.length < 6) {
       return new Response(
