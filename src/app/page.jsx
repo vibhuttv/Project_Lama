@@ -1,10 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation"; // Import useRouter for client-side navigation
 import loginAction from "./loginAction";
 
 export default function Home() {
   const [error, setError] = useState(null);
+  const router = useRouter(); // Initialize the router
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,6 +17,8 @@ export default function Home() {
       const result = await loginAction(formData);
       if (result && typeof result === "string") {
         setError(result);
+      } else {
+        router.push("/protected"); // Redirect after successful login
       }
     } catch (err) {
       setError("An unexpected error occurred");

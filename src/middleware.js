@@ -1,11 +1,9 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import * as jose from "jose";
 
 export async function middleware(request) {
-  console.log("Incoming request: ", request);
+  const cookie = request.cookies.get("Authorization");
 
-  const cookie = cookies().get("Authorization");
   if (!cookie) {
     console.log("No Authorization cookie found.");
     return NextResponse.redirect(new URL("/signup", request.url));
@@ -17,9 +15,10 @@ export async function middleware(request) {
   try {
     const { payload } = await jose.jwtVerify(jwt, secret, {});
     console.log("JWT Payload: ", payload);
+    return NextResponse.next();
   } catch (err) {
     console.log("JWT Verification failed:", err);
-    return NextResponse.redirect(new URL("/signup", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
