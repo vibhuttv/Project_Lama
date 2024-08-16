@@ -3,22 +3,37 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import loginAction from "./loginAction";
+import signupAction from "./signupAction";
 import styles from "./page.module.css";
 import Image from "next/image";
 
 export default function Home() {
+  const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
+
     try {
-      const result = await loginAction(formData);
-      if (result && typeof result === "string") {
-        setError(result);
+      if (isLogin) {
+        // Handle login
+        const result = await loginAction(formData);
+        if (result && typeof result === "string") {
+          setError(result);
+        } else {
+          router.push("/protected");
+        }
       } else {
-        router.push("/protected");
+        // Handle signup
+        const result = await signupAction(formData);
+        if (typeof result === "string") {
+          setError(result);
+        } else {
+          setIsLogin(true);
+          router.push("/");
+        }
       }
     } catch (err) {
       console.error(err);
@@ -63,6 +78,15 @@ export default function Home() {
             <span> Ques.AI </span>
           </h2>
           <form onSubmit={handleSubmit} className={styles.form}>
+            {!isLogin && (
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Name"
+                className={styles.input}
+              />
+            )}
             <input
               type="email"
               name="email"
@@ -77,21 +101,38 @@ export default function Home() {
               placeholder="Password"
               className={styles.input}
             />
-            <div className={styles.forgot}>
-              <a href="#" className={styles.forgotPassword}>
-                Forgot password?
-              </a>
-            </div>
+            {isLogin && (
+              <div className={styles.forgot}>
+                <a href="#" className={styles.forgotPassword}>
+                  Forgot password?
+                </a>
+              </div>
+            )}
             <button className={styles.loginBtn} type="submit">
-              Login
+              {isLogin ? "Login" : "Sign Up"}
             </button>
           </form>
           <div className={styles.orDivider}>
             <span>or</span>
           </div>
           <p className={styles.createAccount}>
-            Don't have an account? <a href="#">Create Account</a>
+            {isLogin ? (
+              <>
+                Don't have an account?{" "}
+                <a href="#" onClick={() => setIsLogin(false)}>
+                  Create Account
+                </a>
+              </>
+            ) : (
+              <>
+                Already have an account?{" "}
+                <a href="#" onClick={() => setIsLogin(true)}>
+                  Login
+                </a>
+              </>
+            )}
           </p>
+          {error && <p className={styles.error}>{error}</p>}
         </div>
       </div>
     </main>
