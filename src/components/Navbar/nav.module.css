@@ -1,0 +1,17 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  margin: 2.5rem;
+  padding: 0.5rem;
+  justify-content: space-between;
+}
+.logo {
+  margin-left: 3rem;
+}
+.icons {
+  margin-right: 3rem;
+}
+.icons a {
+  padding: 0.5rem;
+  color: rgb(36, 36, 36);
+}

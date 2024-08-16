@@ -6,6 +6,7 @@ import loginAction from "./loginAction";
 import signupAction from "./signupAction";
 import styles from "./page.module.css";
 import Image from "next/image";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
@@ -22,7 +23,9 @@ export default function Home() {
         const result = await loginAction(formData);
         if (result && typeof result === "string") {
           setError(result);
+          toast.error(result);
         } else {
+          toast.success("Login successful!");
           router.push("/protected");
         }
       } else {
@@ -30,19 +33,24 @@ export default function Home() {
         const result = await signupAction(formData);
         if (typeof result === "string") {
           setError(result);
+          toast.error(result);
         } else {
+          toast.success("Signup successful!");
           setIsLogin(true);
           router.push("/");
         }
       }
     } catch (err) {
       console.error(err);
-      setError("An unexpected error occurred");
+      const errorMessage = "An unexpected error occurred";
+      setError(errorMessage);
+      toast.error(errorMessage);
     }
   };
 
   return (
     <main className={styles.main}>
+      <Toaster />
       <div className={styles.contentSection}>
         <Image
           src="/logo.svg"
@@ -132,7 +140,6 @@ export default function Home() {
               </>
             )}
           </p>
-          {error && <p className={styles.error}>{error}</p>}
         </div>
       </div>
     </main>
