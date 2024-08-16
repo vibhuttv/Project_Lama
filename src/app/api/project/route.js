@@ -4,7 +4,7 @@ import Project from "../../../models/Project";
 export async function POST(request) {
   try {
     await connectDB();
-    const body = await request.JSON();
+    const body = await request.json();
     const { name } = body;
     console.log("form data", { name });
     if (!name) {
@@ -27,6 +27,7 @@ export async function POST(request) {
       );
     }
   } catch (error) {
+    console.log("error", error);
     return new Response(JSON.stringify({ message: "Invalid request body" }), {
       status: 400,
     });
