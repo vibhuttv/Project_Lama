@@ -1,29 +1,39 @@
-import { useState } from "react";
-import styles from "./pop.module.css";
+import React, { useState } from "react";
+import styles from "./Popup.module.css";
 
-export default function Popup(props) {
-  const [name, setName] = useState("");
+const Popup = ({ toggle, onSubmit }) => {
+  const [projectName, setProjectName] = useState("");
 
-  function handleLogin(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    props.toggle();
-  }
+
+    onSubmit(projectName);
+
+    setProjectName("");
+    toggle();
+  };
 
   return (
-    <div className={styles.popup}>
-      <div className={styles.popupInner}>
-        <h2>{props.title}</h2>
-        <form onSubmit={handleLogin}>
+    <div className={styles.modal}>
+      <div className={styles.modalContent}>
+        <span className={styles.close} onClick={toggle}>
+          &times;
+        </span>
+        <h2>Create New Project</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="projectName">Project Name:</label>
           <input
             type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name"
+            id="projectName"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            required
           />
-          <button type="submit">Login</button>
+          <button type="submit">Create Project</button>
         </form>
-        <button onClick={props.toggle}>Close</button>
       </div>
     </div>
   );
-}
+};
+
+export default Popup;

@@ -16,22 +16,38 @@ const Page = () => {
     setSeen(!seen);
   }
 
+  const handleCreateProject = async (projectName) => {
+    try {
+      const response = await fetch("/api/project", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: projectName, userId: userId }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create project");
+      }
+
+      const newProject = await response.json();
+      setProjects([...projects, newProject]);
+    } catch (error) {
+      console.error("Error creating project:", error);
+    }
+  };
+
   useEffect(() => {
     const fetchUserAndProjects = async () => {
       try {
-        const userResponse = await fetch("http://localhost:3000/api/user");
-
+        const userResponse = await fetch("/api/user");
         if (!userResponse.ok) {
           throw new Error("Failed to fetch user");
         }
-
         const userData = await userResponse.json();
         setUserId(userData.sub);
 
-        const projectResponse = await fetch(
-          "http://localhost:3000/api/project"
-        );
-
+        const projectResponse = await fetch("/api/project");
         if (!projectResponse.ok) {
           throw new Error("Failed to fetch projects");
         }
@@ -77,20 +93,27 @@ const Page = () => {
               enim ad minim veniam, quis nostrud exercitation ullamco laboris
               nisi ut aliquip ex ea commodo consequat.
             </p>
-            <button className={styles.button}>
+            <button className={styles.button} onClick={togglePop}>
               <span className={styles.plusIcon}>
                 <AiOutlinePlusCircle fill="white" size={35} />
               </span>{" "}
               Create New Project
             </button>
             <div>
-              <button onClick={togglePop}>Login</button>
-              {seen ? <Popup toggle={togglePop} /> : null}
+              {seen ? (
+                <Popup toggle={togglePop} onSubmit={handleCreateProject} />
+              ) : null}
             </div>
           </div>
         ) : (
           <div>
             <h1 className={styles.title}>Your Projects</h1>
+            <button className={styles.button} onClick={togglePop}>
+              <span className={styles.plusIcon}>
+                <AiOutlinePlusCircle fill="white" size={35} />
+              </span>{" "}
+              Create New Project
+            </button>
             <div className={styles.cardsContainer}>
               {projects.map((project) => (
                 <div key={project._id} className={styles.card}>
@@ -99,6 +122,9 @@ const Page = () => {
                 </div>
               ))}
             </div>
+            {seen ? (
+              <Popup toggle={togglePop} onSubmit={handleCreateProject} />
+            ) : null}
           </div>
         )}
       </div>
