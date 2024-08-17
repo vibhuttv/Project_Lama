@@ -26,7 +26,7 @@ export default function Home() {
           toast.error(result);
         } else {
           toast.success("Login successful!");
-          router.push("/protected");
+          router.push("/project");
         }
       } else {
         // Handle signup
