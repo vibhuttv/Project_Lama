@@ -5,7 +5,7 @@ export async function middleware(request) {
   const cookie = request.cookies.get("Authorization");
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const restrictedPaths = [];
-  const protectedPaths = ["/protected", "/projects"];
+  const protectedPaths = ["/protected", "/project", "/"];
   const currentPath = request.nextUrl.pathname;
 
   const isRestricted = restrictedPaths.includes(currentPath);
@@ -26,9 +26,14 @@ export async function middleware(request) {
     const { payload } = await jose.jwtVerify(jwt, secret, {});
     console.log("JWT Payload: ", payload);
 
-    if (isRestricted) {
-      return NextResponse.redirect(new URL("/protected", request.url));
+    if (currentPath === "/") {
+      return NextResponse.redirect(new URL("/project", request.url));
     }
+
+    if (isRestricted) {
+      return NextResponse.redirect(new URL("/project", request.url));
+    }
+
     return NextResponse.next();
   } catch (err) {
     console.log("JWT Verification failed:", err);
@@ -37,5 +42,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/", "/projects", "/protected/:path*"],
+  matcher: ["/", "/project/:path*", "/protected/:path*"],
 };
