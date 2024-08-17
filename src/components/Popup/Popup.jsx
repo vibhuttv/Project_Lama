@@ -3,33 +3,50 @@ import styles from "./Popup.module.css";
 
 const Popup = ({ toggle, onSubmit }) => {
   const [projectName, setProjectName] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
-    onSubmit(projectName);
-
-    setProjectName("");
-    toggle();
+    if (projectName.trim() === "") {
+      setError("Project Name Can't be empty");
+    } else {
+      onSubmit(projectName);
+      setProjectName("");
+      toggle();
+    }
   };
 
   return (
     <div className={styles.modal}>
       <div className={styles.modalContent}>
-        <span className={styles.close} onClick={toggle}>
-          &times;
-        </span>
-        <h2>Create New Project</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="projectName">Project Name:</label>
+        <div className={styles.header}>
+          <h2>Create Project</h2>
+        </div>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <label htmlFor="projectName" className={styles.label}>
+            Enter Project Name:
+          </label>
           <input
             type="text"
             id="projectName"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            required
+            placeholder="Type here"
+            className={styles.input}
           />
-          <button type="submit">Create Project</button>
+          {error && <p className={styles.error}>{error}</p>}
+          <div className={styles.buttonContainer}>
+            <button
+              type="button"
+              onClick={toggle}
+              className={styles.cancelButton}
+            >
+              Cancel
+            </button>
+            <button type="submit" className={styles.createButton}>
+              Create
+            </button>
+          </div>
         </form>
       </div>
     </div>

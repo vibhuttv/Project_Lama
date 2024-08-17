@@ -107,13 +107,16 @@ const Page = () => {
           </div>
         ) : (
           <div>
-            <h1 className={styles.title}>Your Projects</h1>
-            <button className={styles.button} onClick={togglePop}>
-              <span className={styles.plusIcon}>
-                <AiOutlinePlusCircle fill="white" size={35} />
-              </span>{" "}
-              Create New Project
-            </button>
+            <div className={styles.buttonLogo}>
+              <h1 className={styles.title}>Projects</h1>
+              <button className={styles.button} onClick={togglePop}>
+                <span className={styles.plusIcon}>
+                  <AiOutlinePlusCircle fill="white" size={35} />
+                </span>{" "}
+                Create New Project
+              </button>
+            </div>
+
             <div className={styles.cardsContainer}>
               {projects.map((project) => (
                 <div key={project._id} className={styles.card}>
