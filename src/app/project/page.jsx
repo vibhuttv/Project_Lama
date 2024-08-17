@@ -4,10 +4,16 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import Popup from "@/components/Popup/Popup";
 
 const Page = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [seen, setSeen] = useState(false);
+
+  function togglePop() {
+    setSeen(!seen);
+  }
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -59,6 +65,10 @@ const Page = () => {
               </span>{" "}
               Create New Project
             </button>
+            <div>
+              <button onClick={togglePop}>Login</button>
+              {seen ? <Popup toggle={togglePop} /> : null}
+            </div>
           </div>
         ) : (
           <div>
