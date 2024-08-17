@@ -1,0 +1,99 @@
+.sidebar {
+  max-width: 24vw;
+  height: 100vh;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 1.2rem;
+}
+
+.logo {
+  margin: 2rem 0 0 1.5rem;
+}
+
+.navLinks {
+  list-style-type: none;
+  padding: 0;
+}
+
+.navLinks li {
+  margin: 20px 0;
+}
+
+.addPodcastBtn,
+.helpSection {
+  background-color: #ffffff;
+  color: #7c7c7c;
+  border: none;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.3rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  padding-left: 1.5rem;
+  font-weight: 600;
+}
+.addPodcastBtnActive {
+  background-color: #f5f3ff;
+  color: #6b21a8;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  text-align: left;
+  font-size: 1.3rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  cursor: pointer;
+  align-items: center;
+  display: flex;
+  padding-left: 1.5rem;
+  font-weight: 600;
+}
+
+.addPodcastBtn span {
+  margin-left: 1rem;
+}
+
+.addPodcastBtnActive span {
+  margin-left: 1rem;
+}
+
+.bottomSection {
+  margin-top: auto;
+}
+
+.helpSection span {
+  margin-left: 1rem;
+}
+
+.userProfile {
+  display: flex;
+  align-items: center;
+  margin: 2.5rem 0 2.5rem 1.8rem;
+}
+
+.profilePic {
+  border-radius: 20%;
+  margin-right: 1rem;
+  border: solid 1px #7c7c7c;
+}
+
+.userProfile p {
+  font-size: 1rem;
+  color: #000000;
+  font-weight: bold;
+}
+
+.userProfile span {
+  font-size: 0.8rem;
+  color: #222222;
+}
+
+.divider {
+  border-top: 1px solid #cccccc;
+  margin: 20px 0 0 20px;
+}

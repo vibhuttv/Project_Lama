@@ -3,14 +3,14 @@ import styles from "./card.module.css";
 
 const Card = ({ project }) => {
   let initials = "";
-  if (project.name.split(" ").length > 1) {
+  if (project.name && project.name.split(" ").length > 1) {
     initials = project.name
       .split(" ")
       .map((word) => word[0])
       .join("")
       .toUpperCase()
       .slice(0, 2);
-  } else {
+  } else if (project.name) {
     initials = project.name.toUpperCase().slice(0, 2);
   }
 
