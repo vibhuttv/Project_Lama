@@ -10,20 +10,38 @@ const Page = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [seen, setSeen] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   function togglePop() {
     setSeen(!seen);
   }
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchUserAndProjects = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/project");
-        if (!response.ok) {
+        const userResponse = await fetch("http://localhost:3000/api/user");
+
+        if (!userResponse.ok) {
+          throw new Error("Failed to fetch user");
+        }
+
+        const userData = await userResponse.json();
+        setUserId(userData.sub);
+
+        const projectResponse = await fetch(
+          "http://localhost:3000/api/project"
+        );
+
+        if (!projectResponse.ok) {
           throw new Error("Failed to fetch projects");
         }
-        const data = await response.json();
-        setProjects(data);
+        let projectData = await projectResponse.json();
+        console.log("Projects:", projectData);
+
+        projectData = projectData.filter(
+          (project) => project.userId === userData.sub
+        );
+        setProjects(projectData);
       } catch (error) {
         console.error("Error fetching projects:", error);
       } finally {
@@ -31,7 +49,7 @@ const Page = () => {
       }
     };
 
-    fetchProjects();
+    fetchUserAndProjects();
   }, []);
 
   if (loading) {

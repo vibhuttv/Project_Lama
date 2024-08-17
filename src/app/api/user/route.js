@@ -1,22 +1,12 @@
-import mongoose from "mongoose";
+import { getCurrentUser } from "@/helpers/getInitialData";
+import { NextResponse } from "next/server";
 
-import User from "../../../models/User";
+export async function GET() {
+  const user = await getCurrentUser();
 
-export async function GET(request) {
-  try {
-    const users = await User.find();
-    return {
-      status: 200,
-      body: {
-        users,
-      },
-    };
-  } catch (err) {
-    return {
-      status: 500,
-      body: {
-        error: err.message,
-      },
-    };
+  if (!user) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
   }
+
+  return NextResponse.json(user, { status: 200 });
 }
