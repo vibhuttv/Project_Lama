@@ -5,6 +5,8 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import Popup from "@/components/Popup/Popup";
+import Card from "@/components/Card/Card";
+import Link from "next/link";
 
 const Page = () => {
   const [projects, setProjects] = useState([]);
@@ -119,10 +121,15 @@ const Page = () => {
 
             <div className={styles.cardsContainer}>
               {projects.map((project) => (
-                <div key={project._id} className={styles.card}>
-                  <h2>{project.name}</h2>
-                  {/* Add more project details here */}
-                </div>
+                <Link
+                  key={project._id}
+                  href={`/project/${project._id}`}
+                  className={styles.nounderline}
+                >
+                  <nav>
+                    <Card project={project} />
+                  </nav>
+                </Link>
               ))}
             </div>
             {seen ? (

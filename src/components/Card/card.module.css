@@ -1,0 +1,61 @@
+.card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  border: #969696 solid 1px;
+  padding: 12px;
+  margin: 10px;
+  height: 140px;
+  max-height: 140px;
+  width: 100%;
+  text-decoration: none;
+}
+
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 0.8rem;
+  background-color: #ffa500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 0.8rem;
+}
+
+.avatar span {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 0.8rem;
+}
+
+.projectName {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  color: #7e22ce;
+}
+
+.episodeCount {
+  font-size: 14px;
+  color: #3c3c3c;
+  margin: 2px 0;
+}
+
+.lastEdited {
+  font-size: 12px;
+  color: #888;
+  margin-top: 1rem;
+}

@@ -10,7 +10,8 @@
 .title {
   color: #7e22ce;
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0.8rem;
 }
 
 .image {
@@ -55,4 +56,15 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 1.2rem;
+}
+.cardsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  text-decoration: none;
+}
+.nounderline {
+  text-decoration: none;
 }
