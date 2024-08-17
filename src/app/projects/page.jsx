@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import connectDB from "@/lib/dbConnect";
+
 const Page = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,12 +12,6 @@ const Page = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        connectDB();
-        const user = await fetch("http://localhost:3000/api/user");
-        if (!user.ok) {
-          throw new Error("Failed to fetch user");
-        }
-
         const response = await fetch("http://localhost:3000/api/project");
         if (!response.ok) {
           throw new Error("Failed to fetch projects");
