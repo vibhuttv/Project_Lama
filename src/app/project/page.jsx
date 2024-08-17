@@ -1,25 +1,37 @@
 "use client";
-import Navbar from "@/components/Navbar/Navbar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./page.module.css";
+
 import Image from "next/image";
-import { AiOutlinePlusCircle } from "react-icons/ai";
-import Popup from "@/components/Popup/Popup";
-import Card from "@/components/Card/Card";
 import Link from "next/link";
 
-const Page = () => {
-  const [projects, setProjects] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [seen, setSeen] = useState(false);
-  const [userId, setUserId] = useState(null);
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
-  function togglePop() {
-    setSeen(!seen);
-  }
+import Navbar from "@/components/Navbar/Navbar";
+import Popup from "@/components/Popup/Popup";
+import Card from "@/components/Card/Card";
+
+import useProjectStore from "@/hooks/useProjectStore";
+
+const Page = () => {
+  const {
+    projects,
+    loading,
+    seen,
+    userId,
+    setProjects,
+    setUserId,
+    setLoading,
+    togglePop,
+    addProject,
+  } = useProjectStore();
 
   const handleCreateProject = async (projectName) => {
     try {
+      const user = await fetch("/api/user")
+        .then((res) => res.json())
+        .then((data) => data.sub);
+      setUserId(user);
       const response = await fetch("/api/project", {
         method: "POST",
         headers: {
@@ -33,7 +45,8 @@ const Page = () => {
       }
 
       const newProject = await response.json();
-      setProjects([...projects, newProject]);
+      console.log("New Project:", newProject);
+      addProject(newProject.project);
     } catch (error) {
       console.error("Error creating project:", error);
     }
@@ -59,6 +72,7 @@ const Page = () => {
         projectData = projectData.filter(
           (project) => project.userId === userData.sub
         );
+
         setProjects(projectData);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -68,7 +82,7 @@ const Page = () => {
     };
 
     fetchUserAndProjects();
-  }, []);
+  }, [setUserId, setProjects, setLoading]);
 
   if (loading) {
     return <div>Loading...</div>;

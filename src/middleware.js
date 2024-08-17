@@ -15,7 +15,7 @@ export async function middleware(request) {
 
   if (!cookie) {
     console.log("No Authorization cookie found.");
-    if (isProtected || isRestricted) {
+    if (isProtected && currentPath !== "/") {
       return NextResponse.redirect(new URL("/", request.url));
     }
     return NextResponse.next();
