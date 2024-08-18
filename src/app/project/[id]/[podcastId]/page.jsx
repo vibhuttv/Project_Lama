@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import styles from "./page.module.css";
@@ -9,19 +9,66 @@ import Link from "next/link";
 const PodcastDetailPage = () => {
   const { id, podcastId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
-
+  const [transcriptText, setTranscriptText] = useState("");
+  const [originalText, setOriginalText] = useState(transcriptText);
+  const [podcastName, setPodcastName] = useState("");
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
   const handleDiscardClick = () => {
+    setTranscriptText(originalText);
     setIsEditing(false);
   };
 
-  const handleSaveClick = () => {
-    // Implement your save logic here
-    setIsEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      const response = await fetch(`/api/podcast/${podcastId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: transcriptText }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save the transcript");
+      }
+
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error saving transcript:", error);
+    }
   };
+
+  const handleTextChange = (e) => {
+    setTranscriptText(e.target.value);
+  };
+
+  useEffect(() => {
+    const fetchTranscript = async () => {
+      console.log("fetching transcript");
+      try {
+        const response = await fetch(`/api/podcast/${podcastId}`);
+        console.log("response", response);
+        if (!response.ok) {
+          throw new Error("Failed to fetch the transcript");
+        }
+        const data = await response.json();
+
+        console.log("data", data.podcast);
+        setPodcastName(data.podcast.name);
+        setTranscriptText(data.podcast.text);
+        setOriginalText(data.podcast.text);
+
+        console.log("transcript fetched " + data.podcast.text);
+      } catch (error) {
+        console.error("Error fetching transcript:", error);
+      }
+    };
+
+    fetchTranscript();
+  }, []);
 
   return (
     <div className={styles.pageContainer}>
@@ -55,12 +102,16 @@ const PodcastDetailPage = () => {
 
       <div className={styles.transcriptContainer}>
         <div className={styles.transcriptContent}>
-          <h3 className={styles.speaker}>Speaker</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-            facilisi. Donec non felis nec nulla suscipit ultrices. Nulla
-            facilisi. Donec non felis nec nulla suscipit ultrices.
-          </p>
+          <h3 className={styles.speaker}>{podcastName}</h3>
+          {isEditing ? (
+            <textarea
+              className={styles.textarea}
+              value={transcriptText}
+              onChange={handleTextChange}
+            />
+          ) : (
+            <p>{transcriptText}</p>
+          )}
         </div>
       </div>
     </div>
