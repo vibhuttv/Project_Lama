@@ -1,0 +1,42 @@
+.uploadContainer {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: 1;
+  border: 1px solid #dbdbdb;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 45vh;
+}
+
+.uploadIcon {
+  color: #7e22ce;
+  margin-bottom: 10px;
+}
+
+.uploadText {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #49454f;
+}
+
+.uploadFormats {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.uploadButton {
+  background-color: white;
+  color: #7e22ce;
+  padding: 1rem 2rem;
+  border: 1.5px solid #7e22ce;
+  border-radius: 2rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 500;
+}

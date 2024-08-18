@@ -1,8 +1,9 @@
 import React from "react";
-import { AiOutlineNotification, AiOutlineLogout } from "react-icons/ai";
 import Link from "next/link";
 import styles from "./Breadcrumb.module.css";
 import { GrHomeRounded } from "react-icons/gr";
+import { FiLogOut } from "react-icons/fi";
+import { GrNotification } from "react-icons/gr";
 
 const Breadcrumb = ({ projectName }) => {
   return (
@@ -22,8 +23,8 @@ const Breadcrumb = ({ projectName }) => {
         </span>
       </div>
       <div className={styles.actions}>
-        <AiOutlineNotification className={styles.actionIcon} />
-        <AiOutlineLogout className={styles.actionIcon} />
+        <GrNotification size={45} className={styles.actionIcon} />
+        <FiLogOut size={45} className={styles.actionIcon} color="red" />
       </div>
     </div>
   );

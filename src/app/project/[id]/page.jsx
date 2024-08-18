@@ -2,62 +2,77 @@
 
 import React, { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-
-import {
-  AiOutlineUpload,
-  AiOutlineYoutube,
-  AiOutlineFile,
-} from "react-icons/ai";
-import { FaRss } from "react-icons/fa";
-import useProjectStore from "@/hooks/useProjectStore";
+import { MdUpload } from "react-icons/md";
+import { FaRss, FaYoutube } from "react-icons/fa";
 import styles from "./page.module.css";
+import Tile from "@/components/Tile/Tile";
+import FileUpload from "@/components/FileUpload/FileUpload";
+import { useParams } from "next/navigation";
 
 const Page = () => {
   const [projectName, setProjectName] = useState("Sample Project");
+  const [loading, setLoading] = useState(true);
+
+  const projectId = useParams().id;
+  console.log("Project ID:", projectId);
 
   useEffect(() => {
     const fetchUserAndProjects = async () => {
+      setLoading(true);
       try {
         const userResponse = await fetch("/api/user");
         if (!userResponse.ok) {
           throw new Error("Failed to fetch user");
         }
+        let userData = await userResponse.json();
 
-        // Here you would fetch the project based on the user or other criteria
-        // For now, we'll just use a static name or you can set the project name from response
-        setProjectName("Sample Project");
+        if (projectId) {
+          const projectResponse = await fetch(`/api/project/${projectId}`);
+          let projectData = await projectResponse.json();
+          console.log("Projects:", projectData);
+
+          setProjectName(projectData.name);
+        }
       } catch (error) {
         console.error("Error fetching user:", error);
       }
+      setLoading(false);
     };
 
     fetchUserAndProjects();
-  }, []);
+  }, [projectId]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className={styles.pageContainer}>
       <Breadcrumb projectName={projectName} />
       <h1 className={styles.heading}>Add Podcast</h1>
 
-      {/* <div className={styles.cardsContainer}>
-        <Card
+      <div className={styles.cardsContainer}>
+        <Tile
           title="RSS Feed"
           description="Lorem ipsum dolor sit. Dolor lorem sit."
-          icon={<FaRss size={50} color="#ff6600" />}
+          icon={<FaRss size={50} color="white" />}
+          color={"#F78422"}
         />
-        <Card
+        <Tile
           title="Youtube Video"
           description="Lorem ipsum dolor sit. Dolor lorem sit."
-          icon={<AiOutlineYoutube size={50} color="#ff0000" />}
+          icon={<FaYoutube size={50} color="white" />}
+          color={"#FF0000"}
         />
-        <Card
+        <Tile
           title="Upload Files"
           description="Lorem ipsum dolor sit. Dolor lorem sit."
-          icon={<AiOutlineUpload size={50} color="#8a2be2" />}
+          icon={<MdUpload size={50} color="#7E22CE" />}
+          color={"#F3E8FF"}
         />
       </div>
 
-      <FileUpload /> */}
+      <FileUpload />
     </div>
   );
 };
