@@ -5,7 +5,7 @@ export async function middleware(request) {
   const cookie = request.cookies.get("Authorization");
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
   const restrictedPaths = [];
-  const protectedPaths = ["/protected", "/project", "/"];
+  const protectedPaths = ["/user", "/project", "/"];
   const currentPath = request.nextUrl.pathname;
 
   const isRestricted = restrictedPaths.includes(currentPath);
@@ -42,5 +42,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/", "/project/:path*", "/protected/:path*"],
+  matcher: ["/", "/project/:path*", "/user/:path*"],
 };

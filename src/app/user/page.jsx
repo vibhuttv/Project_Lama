@@ -7,6 +7,7 @@ import { IoArrowBack } from "react-icons/io5";
 import Image from "next/image";
 import Navbar from "@/components/Navbar/Navbar";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
+import logoutAction from "../logoutAction";
 
 const AccountSettingsPage = () => {
   const router = useRouter();
@@ -63,6 +64,11 @@ const AccountSettingsPage = () => {
     } catch (error) {
       setError("Failed to update user data");
     }
+  };
+
+  const handleLogout = () => {
+    logoutAction();
+    router.push("/");
   };
 
   if (loading) {
@@ -122,9 +128,14 @@ const AccountSettingsPage = () => {
               disabled
             />
           </div>
-          <button onClick={handleSave} className={styles.saveButton}>
-            Save
-          </button>
+          <div className={styles.buttonContainer}>
+            <button onClick={handleSave} className={styles.saveButton}>
+              Save
+            </button>
+            <button onClick={handleLogout} className={styles.logoutButton}>
+              Logout
+            </button>
+          </div>
         </div>
         <div className={styles.subscriptionSection}>
           <h2 className={styles.subHeading}>Subscriptions</h2>
