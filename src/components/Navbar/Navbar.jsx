@@ -14,6 +14,7 @@ function Navbar() {
         className={styles.logo}
         height={54}
         width={268}
+        onClick={() => router.push("/")}
       />
       <div className={styles.icons}>
         <a>

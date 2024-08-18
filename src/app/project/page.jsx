@@ -85,7 +85,11 @@ const Page = () => {
   }, [setUserId, setProjects, setLoading]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.center}>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return (

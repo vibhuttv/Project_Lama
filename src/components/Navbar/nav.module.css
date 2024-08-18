@@ -7,6 +7,7 @@
 }
 .logo {
   margin-left: 3rem;
+  cursor: pointer;
 }
 .icons {
   margin-right: 3rem;

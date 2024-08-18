@@ -41,7 +41,7 @@ const Sidebar = () => {
 
   return (
     <nav className={styles.sidebar}>
-      <div className={styles.logo}>
+      <div className={styles.logo} onClick={() => router.push("/")}>
         <Image src={Logo} alt="Logo" width={190} height={40} />
       </div>
       <ul className={styles.navLinks}>
