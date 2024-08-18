@@ -7,7 +7,7 @@ import { IoArrowBack } from "react-icons/io5";
 import Image from "next/image";
 import Navbar from "@/components/Navbar/Navbar";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
-import logoutAction from "../logoutAction";
+import logoutAction from "../../actions/logoutAction";
 
 const AccountSettingsPage = () => {
   const router = useRouter();

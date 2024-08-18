@@ -18,18 +18,7 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    // if (!validateEmail(email)) {
-    //   return new Response(JSON.stringify({ message: "Invalid email" }), {
-    //     status: 400,
-    //   });
-    // }
 
-    if (password.length < 6) {
-      return new Response(
-        JSON.stringify({ message: "Password should be at least 6 characters" }),
-        { status: 400 }
-      );
-    }
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {

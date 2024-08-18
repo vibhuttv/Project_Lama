@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import loginAction from "./loginAction";
-import signupAction from "./signupAction";
+import loginAction from "../actions/loginAction";
+import signupAction from "../actions/signupAction";
 import styles from "./page.module.css";
 import Image from "next/image";
 import toast, { Toaster } from "react-hot-toast";
