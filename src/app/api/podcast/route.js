@@ -40,7 +40,18 @@ export async function POST(request) {
 export async function GET(request) {
   try {
     await connectDB();
-    const podcasts = await Podcast.find({});
+
+    const { searchParams } = new URL(request.url);
+    const projectId = searchParams.get("project");
+
+    let podcasts;
+
+    if (projectId) {
+      podcasts = await Podcast.find({ project: projectId });
+    } else {
+      podcasts = await Podcast.find({});
+    }
+
     return NextResponse.json(podcasts, { status: 200 });
   } catch (error) {
     console.error("Error fetching podcasts:", error);

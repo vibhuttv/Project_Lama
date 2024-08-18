@@ -8,10 +8,11 @@ import { FaPen } from "react-icons/fa6";
 import { HiRectangleStack } from "react-icons/hi2";
 import { TbDiamondsFilled } from "react-icons/tb";
 import { AiFillSetting } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const [userData, setUserData] = useState({ name: "", email: "" });
-
+  const router = useRouter();
   useEffect(() => {
     console.log("Fetching user data...");
     const getDate = async () => {
@@ -76,14 +77,20 @@ const Sidebar = () => {
       </ul>
       <div className={styles.divider}></div>
       <div className={styles.bottomSection}>
-        <div className={styles.helpSection}>
+        <div
+          className={styles.helpSection}
+          onClick={() => router.push("/user")}
+        >
           <AiFillSetting />
           <span className={styles.navItem}>Help</span>
         </div>
         <div className={styles.divider}></div>
-        <div className={styles.userProfile}>
+        <div
+          className={styles.userProfile}
+          onClick={() => router.push("/user")}
+        >
           <Image
-            src={Logo}
+            src="/user.png"
             alt="Profile"
             width={46}
             height={46}
