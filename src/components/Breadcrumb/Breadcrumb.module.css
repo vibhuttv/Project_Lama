@@ -3,14 +3,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
 }
 
 .breadcrumb {
   display: flex;
   align-items: center;
-  font-size: 14px;
   color: #888;
 }
 
@@ -22,31 +19,32 @@
 .link {
   color: #888;
   text-decoration: none;
-  margin-right: 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
-.link:hover {
-  text-decoration: underline;
+.link h1 {
+  color: #888;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .separator {
-  margin: 0 5px;
+  margin: 5px;
   color: #888;
+  font-size: 1.5rem;
+  padding: 5px;
 }
 
-.projectName {
-  font-weight: bold;
-  color: #888;
-}
-
-.addPodcast a {
+.addPodcast {
   color: #6a0dad;
   text-decoration: none;
   font-weight: bold;
 }
 
-.addPodcast a:hover {
-  text-decoration: underline;
+.addPodcast h1 {
+  font-size: 1.5rem;
 }
 
 .actions {

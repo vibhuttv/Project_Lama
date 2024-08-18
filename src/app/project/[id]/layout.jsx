@@ -1,13 +1,13 @@
 "use client";
 
 import Sidebar from "@/components/Sidebar/Sidebar";
-import React from "react";
-
-const Layout = () => {
+import styles from "./layout.module.css";
+const Layout = ({ children }) => {
   return (
     <div>
-      <div className="container">
+      <div className={styles.container}>
         <Sidebar />
+        {children}
       </div>
     </div>
   );
