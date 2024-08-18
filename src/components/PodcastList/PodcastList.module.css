@@ -35,6 +35,7 @@
 .podcastTable th:first-child {
   border-radius: 5px 0 0 5px;
 }
+
 .podcastTable th:last-child {
   border-radius: 0 5px 5px 0;
 }
@@ -91,4 +92,17 @@
 .viewButton:hover,
 .deleteButton:hover {
   background-color: #e0e0e0;
+}
+
+.podcastTable tbody {
+  display: block;
+  height: 16.5rem;
+  overflow-y: auto;
+}
+
+.podcastTable thead,
+.podcastTable tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }

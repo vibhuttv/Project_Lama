@@ -1,0 +1,94 @@
+.pageContainer {
+  padding: 3rem;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.heading {
+  font-size: 2.2rem;
+  font-weight: 550;
+  color: #2d2a48;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.heading h1 {
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.backicon {
+  cursor: pointer;
+  text-decoration: none;
+}
+.leftSection {
+  display: flex;
+  align-items: center;
+}
+
+.transcriptContainer {
+  position: relative;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 70vh;
+}
+
+.transcriptContent {
+  margin: 20px;
+}
+
+.speaker {
+  font-size: 18px;
+  font-weight: bold;
+  color: #7e22ce;
+  margin-bottom: 20px;
+}
+
+.transcriptContent p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #63635e;
+  margin-bottom: 20px;
+}
+
+.editButton {
+  padding: 0.6rem 2rem;
+  background-color: #211935;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.discardButton {
+  padding: 0.6rem 1.8rem;
+  background-color: white;
+  color: #f44336;
+  border: red 1px solid;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.saveButton {
+  padding: 0.5rem 2rem;
+  background-color: #211935;
+  color: white;
+  border: none;
+  margin-left: 0.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+}

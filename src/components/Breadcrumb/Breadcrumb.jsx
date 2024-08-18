@@ -9,10 +9,12 @@ const Breadcrumb = ({ projectName }) => {
   return (
     <div className={styles.breadcrumbContainer}>
       <div className={styles.breadcrumb}>
-        <GrHomeRounded className={styles.icon} size={24} />
-        <span>
-          <h1 className={styles.link}>Home Page</h1>
-        </span>
+        <Link href="/" className={styles.home}>
+          <GrHomeRounded className={styles.icon} size={24} />
+          <span>
+            <h1 className={styles.link}>Home Page</h1>
+          </span>
+        </Link>
         <span className={styles.separator}>/</span>
         <span className={styles.link}>
           <h1>{projectName}</h1>
@@ -24,7 +26,9 @@ const Breadcrumb = ({ projectName }) => {
       </div>
       <div className={styles.actions}>
         <GrNotification size={45} className={styles.actionIcon} />
-        <FiLogOut size={45} className={styles.actionIcon} color="red" />
+        <Link href="/" className={styles.home}>
+          <FiLogOut size={45} className={styles.actionIcon} color="red" />
+        </Link>
       </div>
     </div>
   );

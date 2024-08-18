@@ -1,10 +1,17 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import styles from "./PodcastList.module.css";
 import formatDateTime from "@/lib/formatDateTime";
 
 const PodcastList = ({ podcasts, onDelete }) => {
+  const router = useRouter();
+
+  const handleView = (podcastId, projectId) => {
+    router.push(`/project/${projectId}/${podcastId}`);
+  };
+
   return (
     <div className={styles.podcastListContainer}>
       <h2>Your Files</h2>
@@ -28,7 +35,12 @@ const PodcastList = ({ podcasts, onDelete }) => {
                 <span className={styles.status}>{podcast.status}</span>
               </td>
               <td className={styles.actionButtons}>
-                <button className={styles.viewButton}>View</button>
+                <button
+                  className={styles.viewButton}
+                  onClick={() => handleView(podcast._id, podcast.project)}
+                >
+                  View
+                </button>
                 <button
                   className={styles.deleteButton}
                   onClick={() => onDelete(podcast._id)}

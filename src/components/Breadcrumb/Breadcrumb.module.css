@@ -11,6 +11,12 @@
   color: #888;
 }
 
+.home {
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+}
+
 .icon {
   margin-right: 8px;
   color: #888;
@@ -55,10 +61,6 @@
 .actionIcon {
   color: #444;
   cursor: pointer;
-}
-
-.actionIcon:hover {
-  color: #e74c3c;
 }
 
 .actionIcon {
