@@ -85,7 +85,7 @@ const Page = () => {
     fetchUserAndProjects();
   }, [setUserId, setProjects, setLoading]);
 
-  if (loading) {
+  if (true) {
     return (
       <div className={styles.center}>
         <LoadingSpinner />

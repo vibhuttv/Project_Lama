@@ -67,8 +67,8 @@ const AccountSettingsPage = () => {
   };
 
   const handleLogout = () => {
-    logoutAction();
     router.push("/");
+    logoutAction();
   };
 
   if (loading) {
