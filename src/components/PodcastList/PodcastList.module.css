@@ -1,0 +1,60 @@
+.podcastListContainer {
+  margin-top: 20px;
+}
+
+.podcastTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.podcastTable th,
+.podcastTable td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.podcastTable th {
+  background-color: #f4f4f4;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+.done {
+  background-color: #d1c4e9;
+  color: #7b1fa2;
+}
+
+.inProgress {
+  background-color: #ffe0b2;
+  color: #e65100;
+}
+
+.viewButton {
+  margin-right: 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.deleteButton {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.deleteButton:hover {
+  background-color: #d32f2f;
+}
+
+.viewButton:hover {
+  background-color: #e0e0e0;
+}

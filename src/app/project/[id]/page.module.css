@@ -15,3 +15,43 @@
   justify-content: space-between;
   margin: 1.5rem 0;
 }
+.podcastForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 100%;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.formLabel {
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #3c3c3c;
+}
+
+.formInput {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.formButton {
+  padding: 10px 20px;
+  background-color: #2d2a48;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.formButton:hover {
+  background-color: #1f1b37;
+}

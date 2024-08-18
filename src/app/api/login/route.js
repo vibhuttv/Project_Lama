@@ -1,5 +1,5 @@
 import * as jose from "jose";
-import connectDB from "../../../lib/dbConnect";
+import connectDB from "../../../lib/connectDB";
 import bcrypt from "bcryptjs";
 import User from "../../../models/User";
 

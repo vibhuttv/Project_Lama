@@ -1,4 +1,4 @@
-import connectDB from "../../../lib/dbConnect";
+import connectDB from "../../../lib/connectDB";
 import Project from "../../../models/Project";
 
 export async function POST(request) {

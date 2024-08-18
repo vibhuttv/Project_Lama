@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./FileUpload.module.css";
 import { MdOutlineCloudUpload } from "react-icons/md";
 
-const FileUpload = () => {
+const FileUpload = ({ onClick }) => {
   return (
     <div className={styles.uploadContainer}>
       <MdOutlineCloudUpload className={styles.uploadIcon} size={110} />
@@ -13,7 +13,9 @@ const FileUpload = () => {
       <p className={styles.uploadFormats}>
         MP4, MOV, MP3, WAV, PDF, DOCX, or TXT file
       </p>
-      <button className={styles.uploadButton}>Select File</button>
+      <button className={styles.uploadButton} onClick={onClick}>
+        Select File
+      </button>
     </div>
   );
 };
