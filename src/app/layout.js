@@ -7,6 +7,7 @@ export const metadata = {
   title: "Skai Lama podcast By Aatmik",
   description: "This is the web app for Skai Lama",
 };
+import { Toaster } from "react-hot-toast";
 
 export default function RootLayout({ children }) {
   return (
@@ -20,7 +21,10 @@ export default function RootLayout({ children }) {
           sizes="<generated>"
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Toaster />
+        {children}
+      </body>
     </html>
   );
 }

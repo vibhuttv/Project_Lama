@@ -8,6 +8,7 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar/Navbar";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 import logoutAction from "../../actions/logoutAction";
+import { toast, Toaster } from "react-hot-toast";
 
 const AccountSettingsPage = () => {
   const router = useRouter();
@@ -54,21 +55,21 @@ const AccountSettingsPage = () => {
         body: JSON.stringify(userData),
       });
 
-      console.log("Changed filed " + JSON.stringify(userData));
-
       if (!response.ok) {
         throw new Error("Failed to update user data");
       }
 
-      alert("User data updated successfully!");
+      toast.success("User data updated successfully!");
     } catch (error) {
       setError("Failed to update user data");
+      toast.error("Failed to update user data");
     }
   };
 
   const handleLogout = () => {
-    router.push("/");
     logoutAction();
+    toast.success("Logged out successfully!");
+    router.push("/");
   };
 
   if (loading) {
@@ -89,6 +90,7 @@ const AccountSettingsPage = () => {
   return (
     <div>
       <Navbar />
+      <Toaster />
       <div className={styles.pageContainer}>
         <div className={styles.header}>
           <IoArrowBack
