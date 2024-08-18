@@ -169,7 +169,6 @@ const Page = () => {
 
   return (
     <div className={styles.pageContainer}>
-      <Breadcrumb projectName={projectName} />
       <h1 className={styles.heading}>Add Podcast</h1>
 
       <div className={styles.cardsContainer}>

@@ -5,6 +5,7 @@ import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import styles from "./page.module.css";
 import { IoArrowBack } from "react-icons/io5";
 import Link from "next/link";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 const PodcastDetailPage = () => {
   const { id, podcastId } = useParams();
@@ -12,6 +13,8 @@ const PodcastDetailPage = () => {
   const [transcriptText, setTranscriptText] = useState("");
   const [originalText, setOriginalText] = useState(transcriptText);
   const [podcastName, setPodcastName] = useState("");
+  const [loading, setLoading] = useState(true);
+
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -46,6 +49,7 @@ const PodcastDetailPage = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchTranscript = async () => {
       console.log("fetching transcript");
       try {
@@ -68,11 +72,17 @@ const PodcastDetailPage = () => {
     };
 
     fetchTranscript();
+    setLoading(false);
   }, []);
-
+  if (loading) {
+    return (
+      <div className={styles.center}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
   return (
     <div className={styles.pageContainer}>
-      <Breadcrumb projectName={`Project ${id}`} />
       <h1 className={styles.heading}>
         <div className={styles.leftSection}>
           <Link href={`/project/${id}`}>
