@@ -1,5 +1,18 @@
 .podcastListContainer {
-  margin-top: 20px;
+  background-color: white;
+  border-radius: 1rem;
+  border: #e1e1e1 1px solid;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  margin: 2rem 0.5rem;
+  font-weight: 550;
+  color: #646464;
+}
+
+.podcastListContainer h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
 }
 
 .podcastTable {
@@ -9,52 +22,73 @@
 
 .podcastTable th,
 .podcastTable td {
+  text-align: center;
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  text-align: left;
 }
 
 .podcastTable th {
-  background-color: #f4f4f4;
+  background-color: #ededed;
+  font-weight: bold;
+  color: #666;
+}
+
+.podcastTable th:first-child {
+  border-radius: 5px 0 0 5px;
+}
+.podcastTable th:last-child {
+  border-radius: 0 5px 5px 0;
+}
+
+.podcastTable td {
+  background-color: #fff;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.podcastTable tr:last-child td {
+  border-bottom: none;
 }
 
 .status {
-  padding: 5px 10px;
-  border-radius: 12px;
-  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
   font-weight: bold;
+  display: inline-block;
+  background-color: #dfbaff;
+  color: #7e23cd;
 }
 
-.done {
-  background-color: #d1c4e9;
-  color: #7b1fa2;
+.actionButtons {
+  display: flex;
+  justify-content: center;
 }
 
-.inProgress {
-  background-color: #ffe0b2;
-  color: #e65100;
+.viewButton,
+.deleteButton {
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
 }
 
 .viewButton {
-  margin-right: 5px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  padding: 5px 10px;
-  cursor: pointer;
+  color: #333;
+  border-radius: 5px 0 0 5px;
 }
 
 .deleteButton {
-  background-color: #f44336;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
+  color: #d9534f;
+  border-radius: 0 5px 5px 0;
 }
 
+.moveButton {
+  color: #5bc0de;
+}
+
+.viewButton:hover,
 .deleteButton:hover {
-  background-color: #d32f2f;
-}
-
-.viewButton:hover {
   background-color: #e0e0e0;
 }

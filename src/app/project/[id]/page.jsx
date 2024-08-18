@@ -10,6 +10,7 @@ import FileUpload from "@/components/FileUpload/FileUpload";
 import { useParams } from "next/navigation";
 import Modal from "@/components/Modal/Modal";
 import PodcastList from "@/components/PodcastList/PodcastList";
+import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
 const Page = () => {
   const [projectName, setProjectName] = useState("Sample Project");
@@ -86,7 +87,6 @@ const Page = () => {
       const newPodcast = await response.json();
       console.log("New Podcast:", newPodcast);
 
-      // Directly update the podcasts state
       setPodcasts((prevPodcasts) => [...prevPodcasts, newPodcast.podcast]);
 
       const projectResponse = await fetch(
@@ -112,6 +112,41 @@ const Page = () => {
     }
   };
 
+  const handleDeletePodcast = async (podcastId) => {
+    try {
+      const response = await fetch(`/api/podcast/${podcastId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete podcast");
+      }
+
+      setPodcasts((prevPodcasts) =>
+        prevPodcasts.filter((podcast) => podcast._id !== podcastId)
+      );
+
+      const projectResponse = await fetch(
+        `/api/project/${projectId}/decrementPodcastCount`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!projectResponse.ok) {
+        throw new Error("Failed to update project's podcast count");
+      }
+
+      const updatedProject = await projectResponse.json();
+      console.log("Updated Project:", updatedProject);
+    } catch (error) {
+      console.error("Error deleting podcast:", error);
+    }
+  };
+
   const openModal = (title, logo) => {
     setModalTitle(title);
     setModalLogo(logo);
@@ -120,12 +155,16 @@ const Page = () => {
 
   const closeModal = () => {
     setModalOpen(false);
-    setPodcastName(""); // Clear form inputs
+    setPodcastName("");
     setPodcastLink("");
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className={styles.center}>
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return (
@@ -177,7 +216,9 @@ const Page = () => {
         />
       )}
 
-      {podcasts.length > 0 && <PodcastList podcasts={podcasts} />}
+      {podcasts.length > 0 && (
+        <PodcastList podcasts={podcasts} onDelete={handleDeletePodcast} />
+      )}
 
       <Modal
         isOpen={isModalOpen}

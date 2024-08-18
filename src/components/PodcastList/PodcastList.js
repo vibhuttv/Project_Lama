@@ -2,8 +2,9 @@
 
 import React from "react";
 import styles from "./PodcastList.module.css";
+import formatDateTime from "@/lib/formatDateTime";
 
-const PodcastList = ({ podcasts }) => {
+const PodcastList = ({ podcasts, onDelete }) => {
   return (
     <div className={styles.podcastListContainer}>
       <h2>Your Files</h2>
@@ -22,19 +23,18 @@ const PodcastList = ({ podcasts }) => {
             <tr key={podcast._id}>
               <td>{index + 1}</td>
               <td>{podcast.name}</td>
-              <td>{new Date(podcast.creationDate).toLocaleString()}</td>
+              <td>{formatDateTime(podcast.updationDate)}</td>
               <td>
-                <span
-                  className={`${styles.status} ${
-                    podcast.status === "DONE" ? styles.done : styles.inProgress
-                  }`}
-                >
-                  {podcast.status === "DONE" ? "Done" : "In Progress"}
-                </span>
+                <span className={styles.status}>{podcast.status}</span>
               </td>
-              <td>
+              <td className={styles.actionButtons}>
                 <button className={styles.viewButton}>View</button>
-                <button className={styles.deleteButton}>Delete</button>
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => onDelete(podcast._id)}
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
