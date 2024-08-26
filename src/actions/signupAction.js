@@ -7,6 +7,15 @@ async function signupAction(formData) {
 
   console.log("form data", { name, email, password: "***" });
 
+  if (password.length < 6) {
+    return "Password must be at least 6 characters long";
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return "Please enter a valid email address";
+  }
+
   const data = { name, email, password };
   console.log(process.env.ROOT_URL + "/api/signup");
 
@@ -20,6 +29,7 @@ async function signupAction(formData) {
     });
 
     const json = await response.json();
+    return json;
   } catch (error) {
     console.error("An error occurred during signup:", error);
     return "An unexpected error occurred";
