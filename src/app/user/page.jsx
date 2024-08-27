@@ -66,8 +66,8 @@ const AccountSettingsPage = () => {
     }
   };
 
-  const handleLogout = () => {
-    logoutAction();
+  const handleLogout = async () => {
+    await logoutAction();
     toast.success("Logged out successfully!");
     router.push("/");
   };

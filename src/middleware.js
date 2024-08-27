@@ -3,15 +3,21 @@ import * as jose from "jose";
 
 export async function middleware(request) {
   const cookie = request.cookies.get("Authorization");
-  const secret = new TextEncoder().encode(process.env.JWT_SECRET);
-  const restrictedPaths = [];
+  const secret = process.env.JWT_SECRET;
+
+  if (!secret) {
+    console.error("JWT_SECRET environment variable is not set.");
+    return NextResponse.redirect(new URL("/", request.url));
+  }
+
   const protectedPaths = ["/user", "/project", "/"];
+  const restrictedPaths = [];
   const currentPath = request.nextUrl.pathname;
 
-  const isRestricted = restrictedPaths.includes(currentPath);
   const isProtected = protectedPaths.some((path) =>
     currentPath.startsWith(path)
   );
+  const isRestricted = restrictedPaths.includes(currentPath);
 
   if (!cookie) {
     console.log("No Authorization cookie found.");
@@ -21,9 +27,13 @@ export async function middleware(request) {
     return NextResponse.next();
   }
 
-  const jwt = cookie.value;
+  const jwt = cookie?.value;
+
   try {
-    const { payload } = await jose.jwtVerify(jwt, secret, {});
+    const { payload } = await jose.jwtVerify(
+      jwt,
+      new TextEncoder().encode(secret)
+    );
     console.log("JWT Payload: ", payload);
 
     if (currentPath === "/") {
@@ -36,7 +46,7 @@ export async function middleware(request) {
 
     return NextResponse.next();
   } catch (err) {
-    console.log("JWT Verification failed:", err);
+    console.error("JWT Verification failed:", err.message);
     return NextResponse.redirect(new URL("/", request.url));
   }
 }

@@ -5,7 +5,9 @@ async function signupAction(formData) {
   const email = formData.get("email");
   const password = formData.get("password");
 
-  console.log("form data", { name, email, password: "***" });
+  if (!name || !email || !password) {
+    return "All fields are required";
+  }
 
   if (password.length < 6) {
     return "Password must be at least 6 characters long";
@@ -17,10 +19,17 @@ async function signupAction(formData) {
   }
 
   const data = { name, email, password };
-  console.log(process.env.ROOT_URL + "/api/signup");
+
+  const rootUrl = process.env.ROOT_URL;
+  if (!rootUrl) {
+    console.error("ROOT_URL environment variable is not set.");
+    return "Configuration error: ROOT_URL is missing";
+  }
+
+  console.log(`Sending signup request to: ${rootUrl}/api/signup`);
 
   try {
-    const response = await fetch(process.env.ROOT_URL + "/api/signup", {
+    const response = await fetch(`${rootUrl}/api/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,11 +37,16 @@ async function signupAction(formData) {
       body: JSON.stringify(data),
     });
 
+    if (!response.ok) {
+      console.error("Signup request failed:", response.statusText);
+      return `Signup failed: ${response.statusText}`;
+    }
+
     const json = await response.json();
     return json;
   } catch (error) {
-    console.error("An error occurred during signup:", error);
-    return "An unexpected error occurred";
+    console.error("An error occurred during signup:", error.message);
+    return "An unexpected error occurred. Please try again later.";
   }
 }
 
