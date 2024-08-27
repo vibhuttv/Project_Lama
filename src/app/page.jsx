@@ -11,6 +11,7 @@ import toast, { Toaster } from "react-hot-toast";
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -19,22 +20,28 @@ export default function Home() {
 
     try {
       if (isLogin) {
+        setLoading(true);
         // Handle login
         const result = await loginAction(formData);
         if (result && typeof result === "string") {
+          setLoading(false);
           setError(result);
           toast.error(result);
         } else {
+          setLoading(false);
           toast.success("Login successful!");
           router.push("/project");
         }
       } else {
+        setLoading(true);
         // Handle signup
         const result = await signupAction(formData);
         if (typeof result === "string") {
+          setLoading(false);
           setError(result);
           toast.error(result);
         } else {
+          setLoading(false);
           toast.success("Signup successful!");
           setIsLogin(true);
           router.push("/");
@@ -117,7 +124,7 @@ export default function Home() {
               </div>
             )}
             <button className={styles.loginBtn} type="submit">
-              {isLogin ? "Login" : "Sign Up"}
+              {loading ? "Loading..." : isLogin ? "Login" : "Create Account"}
             </button>
           </form>
           <div className={styles.orDivider}>
