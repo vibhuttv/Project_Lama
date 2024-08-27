@@ -34,6 +34,7 @@ export default function Home() {
         } else {
           setLoading(false);
           toast.success("Login successful!");
+          toast("Redirecting to projects...");
           router.push("/project");
         }
       } else {
@@ -107,6 +108,7 @@ export default function Home() {
                 type="text"
                 name="name"
                 value={name}
+                onChange={(e) => setName(e.target.value)}
                 required
                 placeholder="Name"
                 className={styles.input}
@@ -116,6 +118,7 @@ export default function Home() {
               type="email"
               name="email"
               value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               placeholder="Email Address"
               className={styles.input}
@@ -124,6 +127,7 @@ export default function Home() {
               type="password"
               name="password"
               value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
               placeholder="Password"
               className={styles.input}
