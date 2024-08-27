@@ -12,6 +12,10 @@ export default function Home() {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -52,6 +56,11 @@ export default function Home() {
       const errorMessage = "An unexpected error occurred";
       setError(errorMessage);
       toast.error(errorMessage);
+    }
+    setEmail("");
+    setPassword("");
+    if (!isLogin) {
+      setName("");
     }
   };
 
@@ -97,6 +106,7 @@ export default function Home() {
               <input
                 type="text"
                 name="name"
+                value={name}
                 required
                 placeholder="Name"
                 className={styles.input}
@@ -105,6 +115,7 @@ export default function Home() {
             <input
               type="email"
               name="email"
+              value={email}
               required
               placeholder="Email Address"
               className={styles.input}
@@ -112,6 +123,7 @@ export default function Home() {
             <input
               type="password"
               name="password"
+              value={password}
               required
               placeholder="Password"
               className={styles.input}
